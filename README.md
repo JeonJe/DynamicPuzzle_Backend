@@ -3,7 +3,7 @@ DynamicPuzzle에 express서버 붙이는 프로젝트
 - [DynamicPuzzle](https://github.com/JeonJe/DynamicPuzzle)
 
 1차 목표 : 필요 기능 추가
-- Mongo DB 연결 - 
+- Mongo DB 연결 - 완료
 - 회원가입 & 로그인 (JWT)
 - 게임 랭킹 추가 
 
