@@ -25,11 +25,31 @@ mongoose
   })
   .catch((err) => console.error(`[-] mongoseDB ERROR :: ${err}`));
 
+app.post("/api/signup", async (req, res) => {
+  const { username, email, password } = req.body;
+  console.log(username,email,password);
+  try{
+  const duplicateCheck = await User.findOne({ username });
+  if (duplicateCheck) {
+    return res.status(409).send({ message: "Username already exists." });
+  }
+
+  const user = new User({ username,email, password });
+  await user.save();
+
+  const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
+  res.status(201).send({ token });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: 'Server Error' });
+  }
+
+});
 
 app.post("/api/login", async (req, res) => {
   //사용자로부터 받은 정보
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, password } = req.body;
 
   //fetch user date from database 
   try{
