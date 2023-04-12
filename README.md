@@ -5,6 +5,7 @@ DynamicPuzzle에 express서버 붙이는 프로젝트
 1차 목표 : 필요 기능 추가
 - Mongo DB 연결 - 완료
 - 회원가입 & 로그인 (JWT)
+-> 회원가입 완료, 로그인 후 JWT로 권한있는 페이지만 들어갈 수 있도록 처리 필요 (HOC - Higer Order Component)
 - 게임 랭킹 추가 
 
 2차 목표 : 로직 변경
