@@ -25,24 +25,39 @@ mongoose
   })
   .catch((err) => console.error(`[-] mongoseDB ERROR :: ${err}`));
 
+//회원가입
 app.post("/api/signup", async (req, res) => {
-  const { username, email, password } = req.body;
-  console.log(username,email,password);
+  const { username, email, password, passwordValidity } = req.body;
+  
   try{
-  const duplicateCheck = await User.findOne({ username });
-  if (duplicateCheck) {
-    return res.status(409).send({ message: "Username already exists." });
-  }
+    // Check email and password validity
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).send({ message: "이메일 형식이 올바르지 않습니다." });
+    }
+   if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(password)) {
+     return res
+       .status(400)
+       .send({ message: "비밀번호는 최소 1개의 소문자, 1개의 대문자, 1개의 숫자가 포함 되어야하며 최소 8자 이상이여야 합니다." });
+   }
 
-  const user = new User({ username,email, password });
-  await user.save();
+   if (password !== passwordValidity) {
+     return res.status(400).send({ message: "비밀번호가 동일하지 않습니다." });
+   }
 
-  const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
-  res.status(201).send({ token });
+    const duplicateCheck = await User.findOne({ username });
+    if (duplicateCheck) {
+      return res.status(409).send({ message: "이미 존재하는 아이디입니다." });
+    }
 
+
+    const user = new User({ username, email, password });
+    await user.save();
+
+    const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
+    res.status(201).send({ token });
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: 'Server Error' });
+    res.status(500).send({ message: '서버 오류가 발생했습니다.' });
   }
 
 });
@@ -56,17 +71,17 @@ app.post("/api/login", async (req, res) => {
       const user = await User.findOne({ username: username });
 
       if(!user){
-        return res.status(401).json(({ error: "Invalid username or password" }));
+        return res.status(401).json(({ error: "잘못된 아이디 또는 비밀번호 입니다." }));
       }
 
        if (bcrypt.compareSync(password, user.password)) {
          // If the user exists and the password is correct, generate a JWT
          const token = jwt.sign({ username }, secretKey, { expiresIn: "1h" });
          res.status(200).json({ token });
-         console.log("Login successful");
+         console.log("로그인에 성공하였습니다.");
        } else {
          // If the password is incorrect, return an error
-         res.status(401).json({ error: "Invalid username or password" });
+         res.status(401).json({ error: "잘못된 아이디 또는 비밀번호 입니다." });
        }
   }
   catch(err){
