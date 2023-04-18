@@ -5,7 +5,7 @@ exports.verifyToken = (req, res, next) => {
   // 인증 완료
   try {
     req.decoded = jwt.verify(req.headers.authorization, secretKey);
-    req.username = req.decoded.username;
+    req.name = req.decoded.name;
     
     return next();
   } catch (error) {
