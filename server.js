@@ -15,15 +15,14 @@ app.use(express.json());
 app.use(cors());
 app.use(router);
 
-// body-parser 미들웨어를 사용하여 요청 본문을 파싱
+// use body-parser for request body parsing
 app.use(bodyParser.json());
 const dbURL = process.env.DB_URL;
 const secretKey = process.env.SECRET_KEY;
 
 const { verifyToken } = require('./middlewares/auth/verifyToken');
 
-
-//database 연결
+//connect database 
 mongoose
   .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -31,7 +30,6 @@ mongoose
   })
   .catch((err) => console.error(`[-] mongoseDB ERROR :: ${err}`));
 
-//회원가입
 router.post("/api/signup", async (req, res) => {
   const { username, email, password, passwordValidity } = req.body;
   
@@ -68,7 +66,7 @@ router.post("/api/signup", async (req, res) => {
 });
 
 router.post("/api/login", async (req, res) => {
-  //사용자로부터 받은 정보
+
   const { username, password } = req.body;
 
   //fetch user date from database
@@ -94,9 +92,9 @@ router.post("/api/login", async (req, res) => {
   }
 });
 
-router.get("/", verifyToken, async(req, res, next) =>{
+router.get("/api/validate-token", verifyToken, async(req, res, next) =>{
     try {
-      // auth 미들웨어에서 생성해준 req.user를 사용하여 DB에서 user 확인
+
       const user = await User.findOne({username: req.username}).select("-password");
       res.json(user);
     } catch (error) {
@@ -104,6 +102,7 @@ router.get("/", verifyToken, async(req, res, next) =>{
       res.status(500).send("Server error");
     }
 });
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
