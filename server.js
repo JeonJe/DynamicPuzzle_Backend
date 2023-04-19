@@ -100,7 +100,7 @@ router.get("/api/validate-token", verifyToken, async (req, res, next) => {
 router.get("/api/ranking", verifyToken, async(req, res, next) =>{
   try {
     const page = parseInt(req.query.page) || 1;
-    const perPage = 10;
+    const perPage = 5;
     const ranking = await User.find({})
       .select("name win lose")
       .sort({ win: -1, lose: 1 })
