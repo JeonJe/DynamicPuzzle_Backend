@@ -1,49 +1,33 @@
 
-# 개인추가 구현
-- Mongo DB 연결 - 완료
-- 회원가입 & 로그인 & 로그아웃 & HOC (Higer Order Component for authentication wit JWT token) - 완료
-- 게임 랭킹 추가 - 완료
-
-
---------------
 # [크래프톤 정글] Dynamic Puzzle (+Auth, Ranking)
 
 - 기간: 2023년 1월 19일 → 2023년 3월 11일
 - 태그: Github, Github actions, MongoDB, Next.js, Node.js, React.js, Socket.IO, Team Project, Web-RTC
 
 ## Overview
-
+다섯가지 아이템을 활용하여 상대방보다 먼저 상대 얼굴을 맞춰야 하는 실시간 1대1 퍼즐 게임
 - 게임 소개 영상
     [https://www.youtube.com/watch?v=sIGSSbmrrp0](https://www.youtube.com/watch?v=sIGSSbmrrp0)
     
-![Untitled](https://user-images.githubusercontent.com/43032391/233377192-61993e32-2e66-4d0c-83b5-ac0c080b8aba.png)
-
-
-
-## Project Goal
-
-- 무조건 돌아가는 프로그램 만들기
-- Seamless한 프로그램으로 유저를 즐겁게 해주기
-- Web-RTC 기술을 극대화 하여 사용 해보기
 
 ## Tech Stack
 
 ![Untitled 1](https://user-images.githubusercontent.com/43032391/233376133-0479e125-42c9-4ac8-b21a-217f3ad5157d.png)
 
-- Front-End : React.js, Next.js, React Spring, Recoil, Type Script
-- Back-end : Next.js (API 및 웹서버 역할), Node.js(인증, 랭킹, MongoDB
+- Front-End : React.js, Next.js, ReactSpring, Recoil, Type Script
+- Back-end : Next.js (API 및 웹서버 역할), Node.js(인증, 랭킹, MongoDB)
 - Infra: Amazon EC2, Github actions, Socket.io, Web-RTC
-- Tools : Slack, Github, Notion
+- Tools : Github, Notion
 
 ## Role
-- 프로젝트 아이디어 기획, 설계, 개발
-- Web-RTC를 활용한 Peer to Peer 통신 연결,Room 생성, 예외처리
-- 서버 환경 및 Github Actions 를 이용한 자동 Build & Deploy 구축
-- 블랙홀 아이템 개발
-- 왜곡 아이템 개선
-- 개발 간 버그 트러블 슈팅 & 해결
-- [추가 개인 구현] JWT를 활용한 회원가입, 로그인, 로그아웃 및 게임 랭킹 구현
-- 포스터 제작
+1. Web-RTC를 활용한 Peer to Peer 통신 연결 기능 개발
+2. Socket.IO를 통한 게임 Room 생성, 입장, 종료 기능 개발
+3. “블랙홀” 기능 개발(상대 퍼즐조각이 마우스 포인터를 따라다니는 아이템)
+4. 왜곡 아이템 유저 FPS 개선 (아이템 사용시 FPS 44.8->54 (20%) 개선)
+5. Nginx을 사용한 도메인 SSL 인증서 적용
+6. Github Actions를 사용한 코드 자동 Build & Deploy 구축
+7. [추가 개인 구현] Node.JS, MongoDB, JWT를 활용한 회원가입, 로그인, 로그아웃 개발
+
 
 ## 결과 화면
 
@@ -128,8 +112,7 @@
 
 
 
-- 팀Github 링크 :  [https://github.com/SKPPL/DynamicPuzzle](https://github.com/SKPPL/DynamicPuzzle)
-- 프로젝트 관리(notion) : [[나만의무기] DP개발일지](https://www.notion.so/DP-722202f8ed6b403ca5ea2b352d1f714a)
+- 팀 Github : [다이나믹 퍼즐 팀 레포지토리](https://github.com/SKPPL/DynamicPuzzle)
 - 발표 포스터
 ![Untitled 11](https://user-images.githubusercontent.com/43032391/233376584-97b3b7ed-ff0f-4c22-819b-e75a0dafab63.png)
 
